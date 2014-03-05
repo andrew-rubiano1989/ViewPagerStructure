@@ -43,6 +43,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     TextView Title;
     ImageButton homeIcon, searchIcon;
     EditText searchBar;
+    int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             @Override
             public void onPageScrolled(int i, float v, int i2) {
                 if(v > .5)
-                    Title.setText(mSectionsPagerAdapter.getPageTitle(i+1));
+                    Title.setText(mSectionsPagerAdapter.getPageTitle(i + 1));
                 else
                     Title.setText(mSectionsPagerAdapter.getPageTitle(i));
             }
@@ -105,14 +106,20 @@ public class MainActivity extends Activity implements View.OnClickListener{
             public void onClick(View v) {
                 if(searchBar.getVisibility() == View.VISIBLE)
                 {
+                    MyCustomAnimation a = new MyCustomAnimation(searchBar, 1000, MyCustomAnimation.COLLAPSE);
+                    height = a.getWidth();
+                    searchBar.startAnimation(a);
+
                     Title.setVisibility(View.VISIBLE);
                     homeIcon.setVisibility(View.VISIBLE);
-                    searchBar.setVisibility(View.GONE);
                 }
                 else{
+                    MyCustomAnimation a = new MyCustomAnimation(searchBar, 1000, MyCustomAnimation.EXPAND);
+                    a.setWidth(height);
+                    searchBar.startAnimation(a);
+
                     Title.setVisibility(View.GONE);
                     homeIcon.setVisibility(View.GONE);
-                    searchBar.setVisibility(View.VISIBLE);
                 }
             }
         });
