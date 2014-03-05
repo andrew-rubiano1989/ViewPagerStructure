@@ -20,13 +20,13 @@ public class MyCustomAnimation extends Animation {
 
         setDuration(duration);
         mView = view;
-        mEndWidth = mView.getHeight();
+        mEndWidth = mView.getWidth();
         mLayoutParams = ((LinearLayout.LayoutParams) view.getLayoutParams());
         mType = type;
         if(mType == EXPAND) {
             mLayoutParams.width = 0;
         } else {
-            mLayoutParams.width = LayoutParams.WRAP_CONTENT;
+            mLayoutParams.width = LayoutParams.MATCH_PARENT;
         }
         view.setVisibility(View.VISIBLE);
     }

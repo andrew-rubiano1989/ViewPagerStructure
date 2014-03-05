@@ -2,20 +2,28 @@ package com.app;
 
 import java.util.Locale;
 
+import android.animation.Animator;
+import android.animation.LayoutTransition;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -43,7 +51,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     TextView Title;
     ImageButton homeIcon, searchIcon;
     EditText searchBar;
-    int height;
+    Context context;
+    Animation expand, collapse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,20 +115,25 @@ public class MainActivity extends Activity implements View.OnClickListener{
             public void onClick(View v) {
                 if(searchBar.getVisibility() == View.VISIBLE)
                 {
-                    MyCustomAnimation a = new MyCustomAnimation(searchBar, 1000, MyCustomAnimation.COLLAPSE);
-                    height = a.getWidth();
-                    searchBar.startAnimation(a);
+                    collapse = new ScaleAnimation(1, 0, 1, 1);
+                    collapse.setDuration(250);
 
-                    Title.setVisibility(View.VISIBLE);
+                    searchBar.setAnimation(collapse);
+                    searchBar.setVisibility(View.GONE);
                     homeIcon.setVisibility(View.VISIBLE);
+                    Title.setVisibility(View.VISIBLE);
                 }
                 else{
-                    MyCustomAnimation a = new MyCustomAnimation(searchBar, 1000, MyCustomAnimation.EXPAND);
-                    a.setWidth(height);
-                    searchBar.startAnimation(a);
+                    searchBar.setVisibility(View.VISIBLE);
 
-                    Title.setVisibility(View.GONE);
+                    expand = new ScaleAnimation(0, 1, 1, 1);
+                    expand.setDuration(250);
+
+                    searchBar.setAnimation(expand);
+
                     homeIcon.setVisibility(View.GONE);
+                    Title.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -245,5 +259,4 @@ public class MainActivity extends Activity implements View.OnClickListener{
             return rootView;
         }
     }
-
 }
