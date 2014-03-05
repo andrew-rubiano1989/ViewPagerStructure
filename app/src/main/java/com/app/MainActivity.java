@@ -27,6 +27,7 @@ import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
      */
     ViewPager mViewPager;
     ActionBar actionBar;
-    Button stream, goalManager, createGoal, achievements, progressTracker;
+    LinearLayout stream, goalManager, createGoal, achievements, progressTracker;
     TextView Title;
     ImageButton homeIcon, searchIcon;
     EditText searchBar;
@@ -70,19 +71,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
         actionBar = getActionBar();
         actionBar.hide();
 
-        stream = (Button) findViewById(R.id.stream);
+        stream = (LinearLayout) findViewById(R.id.stream);
         stream.setOnClickListener(this);
 
-        goalManager = (Button) findViewById(R.id.goalManager);
+        goalManager = (LinearLayout) findViewById(R.id.goalManager);
         goalManager.setOnClickListener(this);
 
-        createGoal = (Button) findViewById(R.id.createGoal);
+        createGoal = (LinearLayout) findViewById(R.id.createGoal);
         createGoal.setOnClickListener(this);
 
-        achievements = (Button) findViewById(R.id.achievements);
+        achievements = (LinearLayout) findViewById(R.id.achievements);
         achievements.setOnClickListener(this);
 
-        progressTracker = (Button) findViewById(R.id.progressTracker);
+        progressTracker = (LinearLayout) findViewById(R.id.progressTracker);
         progressTracker.setOnClickListener(this);
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -211,15 +212,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.title_section1);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.title_section2);
                 case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return getString(R.string.title_section3);
                 case 3:
-                    return getString(R.string.title_section4).toUpperCase(l);
+                    return getString(R.string.title_section4);
                 case 4:
-                    return getString(R.string.title_section5).toUpperCase(l);
+                    return getString(R.string.title_section5);
             }
             return null;
         }

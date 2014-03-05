@@ -2,11 +2,11 @@
 <resources>
 
     <string name="app_name">ViewPagerStructure</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-    <string name="title_section4">Section 4</string>
-    <string name="title_section5">Section 5</string>
+    <string name="title_section1">Achievement Stream</string>
+    <string name="title_section2">Goal Manager</string>
+    <string name="title_section3">Create Goal</string>
+    <string name="title_section4">Hall Of Awesome</string>
+    <string name="title_section5">Progress Tracker</string>
     <string name="action_settings">Settings</string>
 
 </resources>

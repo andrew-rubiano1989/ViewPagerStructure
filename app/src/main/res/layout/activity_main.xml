@@ -8,7 +8,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@android:color/black"
+        android:background="@drawable/nav_unselected_button"
         android:padding="5dp"
         android:gravity="center_vertical|left"
         android:id="@+id/actionbarContainer">
@@ -27,7 +27,7 @@
             android:text="Title"
             android:textSize="20dp"
             android:gravity="left"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:layout_weight="10"
             android:layout_marginLeft="5dp"/>
 
@@ -72,31 +72,86 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/stream"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/navigation_button">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/stream_icon"
+                android:clickable="false"/>
+
+            </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/goalManager"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/navigation_button">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/task_manager_icon"
+                android:clickable="false"/>
+
+            </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/createGoal"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/navigation_button">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/settings_icon"
+                android:clickable="false"/>
+
+            </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/achievements"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/navigation_button">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/achievement_stream_icon"
+                android:clickable="false"/>
+
+            </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/progressTracker"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="@drawable/navigation_button">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/progress_tracker_icon"
+                android:clickable="false"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
