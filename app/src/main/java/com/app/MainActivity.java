@@ -21,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.Transformation;
@@ -30,6 +32,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import UI_Fragments.AchievementStream;
+import UI_Fragments.CreateGoal;
+import UI_Fragments.GoalManager;
+import UI_Fragments.HallOfAwesome;
+import UI_Fragments.ProgressTracker;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -58,6 +66,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
 
         // Create the adapter that will return a fragment for each of the three
@@ -198,7 +210,20 @@ public class MainActivity extends Activity implements View.OnClickListener{
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch(position){
+                case 0:
+                    return new AchievementStream();
+                case 1:
+                    return new GoalManager();
+                case 2:
+                    return new CreateGoal();
+                case 3:
+                    return new HallOfAwesome();
+                case 4:
+                    return new ProgressTracker();
+                default:
+                    return PlaceholderFragment.newInstance(position);
+            }
         }
 
         @Override
