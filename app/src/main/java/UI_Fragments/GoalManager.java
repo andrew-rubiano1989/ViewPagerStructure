@@ -1,7 +1,9 @@
 package UI_Fragments;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import com.app.R;
 
 import java.util.Random;
+
+import GoalFragments.Goal;
 
 /**
  * Created by Drew on 3/13/14.
@@ -37,14 +41,16 @@ public class GoalManager extends Fragment {
 
         r = new Random();
 
-        addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-        addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-        addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-        addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-        addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-        addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-        addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-        addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
+        addGoal(leftGrid, rightGrid);
 
         sortBy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,49 +58,33 @@ public class GoalManager extends Fragment {
                 leftGrid.removeAllViews();
                 rightGrid.removeAllViews();
 
-                addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-                addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-                addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-                addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-                addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-                addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-                addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
-                addGoal(createBlock(r.nextInt(3)), leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
+                addGoal(leftGrid, rightGrid);
             }
         });
 
         return rootView;
     }
 
-    private void addGoal(LinearLayout block, LinearLayout left, LinearLayout right) {
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void addGoal(LinearLayout left, LinearLayout right) {
         if(leftFirst)
         {
-            left.addView(block);
+            getChildFragmentManager().beginTransaction().add(R.id.goalsLeftGrid, new Goal(r.nextInt(3))).commit();
             leftFirst = false;
         }
         else
         {
-            right.addView(block);
+            getChildFragmentManager().beginTransaction().add(R.id.goalsRightGrid, new Goal(r.nextInt(3))).commit();
             leftFirst = true;
         }
-    }
-
-    private LinearLayout createBlock(int size)
-    {
-        while(size == 0)
-            size = r.nextInt(3);
-
-        DisplayMetrics metrics = getActivity().getApplicationContext().getResources().getDisplayMetrics();
-        LinearLayout lb = new LinearLayout(getActivity().getApplicationContext());
-        lb.setOrientation(LinearLayout.VERTICAL);
-        lb.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, Math.round(metrics.heightPixels/5)*size));
-        lb.setBackgroundColor(Color.BLACK);
-
-        TextView lt = new TextView(getActivity().getApplicationContext());
-        lt.setText("block of size: " + size);
-
-        lb.addView(lt);
-
-        return lb;
     }
 }
