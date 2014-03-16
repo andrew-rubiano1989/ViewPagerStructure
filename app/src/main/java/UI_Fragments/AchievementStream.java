@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.app.R;
 
@@ -27,12 +28,12 @@ public class AchievementStream extends Fragment {
 
         childFragManager = getChildFragmentManager();
 
-        childFragManager.beginTransaction().add(R.id.card_scroll_view, new CardFragment()).commit();
-        childFragManager.beginTransaction().add(R.id.card_scroll_view, new CardFragment()).commit();
-        childFragManager.beginTransaction().add(R.id.card_scroll_view, new CardFragment()).commit();
-        childFragManager.beginTransaction().add(R.id.card_scroll_view, new CardFragment()).commit();
-        childFragManager.beginTransaction().add(R.id.card_scroll_view, new CardFragment()).commit();
-        childFragManager.beginTransaction().add(R.id.card_scroll_view, new CardFragment()).commit();
+        childFragManager.beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment).add(R.id.card_scroll_view, new CardFragment()).commit();
+        childFragManager.beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment).add(R.id.card_scroll_view, new CardFragment()).commit();
+        childFragManager.beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment).add(R.id.card_scroll_view, new CardFragment()).commit();
+        childFragManager.beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment).add(R.id.card_scroll_view, new CardFragment()).commit();
+        childFragManager.beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment).add(R.id.card_scroll_view, new CardFragment()).commit();
+        childFragManager.beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment).add(R.id.card_scroll_view, new CardFragment()).commit();
 
         return rootView;
     }

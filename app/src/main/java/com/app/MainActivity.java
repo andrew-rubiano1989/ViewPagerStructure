@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     LinearLayout stream, goalManager, createGoal, achievements, progressTracker;
     TextView Title;
     ImageButton searchIcon;
-    ImageView homeIcon;
+    ImageView homeIcon, streamIcon;
     EditText searchBar;
     Animation expand, collapse;
 
@@ -87,6 +87,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         stream = (LinearLayout) findViewById(R.id.stream);
         stream.setOnClickListener(this);
+        streamIcon = (ImageView) stream.findViewById(R.id.stream_icon);
 
         goalManager = (LinearLayout) findViewById(R.id.goalManager);
         goalManager.setOnClickListener(this);
@@ -101,6 +102,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         progressTracker.setOnClickListener(this);
 
         stream.setBackgroundColor(Color.parseColor("#0099cb"));
+        streamIcon.setImageResource(R.drawable.stream_icon_white);
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -188,6 +190,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.stream:
                 mViewPager.setCurrentItem(0);
                 stream.setBackgroundColor(Color.parseColor("#0099cb"));
+                streamIcon.setImageResource(R.drawable.stream_icon_white);
                 goalManager.setBackgroundColor(Color.parseColor("#333333"));
                 createGoal.setBackgroundColor(Color.parseColor("#333333"));
                 achievements.setBackgroundColor(Color.parseColor("#333333"));
@@ -196,6 +199,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.goalManager:
                 mViewPager.setCurrentItem(1);
                 stream.setBackgroundColor(Color.parseColor("#333333"));
+                streamIcon.setImageResource(R.drawable.stream_icon);
                 goalManager.setBackgroundColor(Color.parseColor("#0099cb"));
                 createGoal.setBackgroundColor(Color.parseColor("#333333"));
                 achievements.setBackgroundColor(Color.parseColor("#333333"));
@@ -204,6 +208,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.createGoal:
                 mViewPager.setCurrentItem(2);
                 stream.setBackgroundColor(Color.parseColor("#333333"));
+                streamIcon.setImageResource(R.drawable.stream_icon);
                 goalManager.setBackgroundColor(Color.parseColor("#333333"));
                 createGoal.setBackgroundColor(Color.parseColor("#0099cb"));
                 achievements.setBackgroundColor(Color.parseColor("#333333"));
@@ -212,6 +217,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.achievements:
                 mViewPager.setCurrentItem(3);
                 stream.setBackgroundColor(Color.parseColor("#333333"));
+                streamIcon.setImageResource(R.drawable.stream_icon);
                 goalManager.setBackgroundColor(Color.parseColor("#333333"));
                 createGoal.setBackgroundColor(Color.parseColor("#333333"));
                 achievements.setBackgroundColor(Color.parseColor("#0099cb"));
@@ -220,6 +226,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.progressTracker:
                 mViewPager.setCurrentItem(4);
                 stream.setBackgroundColor(Color.parseColor("#333333"));
+                streamIcon.setImageResource(R.drawable.stream_icon);
                 goalManager.setBackgroundColor(Color.parseColor("#333333"));
                 createGoal.setBackgroundColor(Color.parseColor("#333333"));
                 achievements.setBackgroundColor(Color.parseColor("#333333"));

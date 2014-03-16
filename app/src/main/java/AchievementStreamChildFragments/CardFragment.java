@@ -2,7 +2,6 @@ package AchievementStreamChildFragments;
 
 import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,27 +14,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.BoringLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.app.R;
 
 import java.util.Random;
@@ -47,52 +35,26 @@ import Comments.Comment;
  */
 public class CardFragment extends Fragment {
 
-    LinearLayout commentButton, likeButton, endorseButton;
-    LinearLayout actionContainer, commentContainer, addCommentContainer, allActionContainer;
+    LinearLayout commentButton, likeButton, endorseButton, actionContainer, commentContainer, addCommentContainer, allActionContainer;
     EditText addCommentEditText;
     Button postButton;
     ImageView profilePic, commentPic;
-    Animation expand, collapse, fadein, fadeout;
     DisplayMetrics metrics;
-    FragmentTransaction fragmentTransaction;
-    Runnable sleep;
+    Runnable asyncAddComments;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.card_fragment_layout, container, false);
 
-        metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        commentButton = (LinearLayout) rootView.findViewById(R.id.commentButton);
-        likeButton = (LinearLayout) rootView.findViewById(R.id.likeButton);
-        endorseButton = (LinearLayout) rootView.findViewById(R.id.endorseButton);
-        postButton = (Button) rootView.findViewById(R.id.postButton);
-
-        actionContainer = (LinearLayout) rootView.findViewById(R.id.actionContainer);
-        commentContainer = (LinearLayout) rootView.findViewById(R.id.commentContainer);
-        addCommentContainer = (LinearLayout) rootView.findViewById(R.id.addCommentContainer);
-        allActionContainer = (LinearLayout) rootView.findViewById(R.id.allActionContainer);
-
-        addCommentEditText = (EditText) rootView.findViewById(R.id.commentEditText);
-
-        profilePic = (ImageView) rootView.findViewById(R.id.eventProfileIcon);
-        commentPic = (ImageView) rootView.findViewById(R.id.profilePicture);
-
-        sleep = createSleepRunnable();
-
-        Drawable myDrawable = getResources().getDrawable(R.drawable.profile_pic);
-        Bitmap myPic = ((BitmapDrawable) myDrawable).getBitmap();
-        profilePic.setImageBitmap(getRoundedCornerBitmap(myPic, 48));
-        commentPic.setImageBitmap(getRoundedCornerBitmap(myPic, 48));
+        intializeFragment(rootView);
 
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(commentContainer.getVisibility() == View.GONE)
                 {
-                    new Thread(sleep).start();
+                    new Thread(asyncAddComments).start();
 
                     commentContainer.setVisibility(View.VISIBLE);
                     addCommentContainer.setVisibility(View.VISIBLE);
@@ -100,7 +62,6 @@ public class CardFragment extends Fragment {
                 }
                 else
                 {
-                    allActionContainer.setAnimation(collapse);
                     commentContainer.setVisibility(View.GONE);
                     addCommentContainer.setVisibility(View.GONE);
                     commentButton.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -142,6 +103,34 @@ public class CardFragment extends Fragment {
         return rootView;
     }
 
+    private void intializeFragment(View rootView) {
+
+    metrics = new DisplayMetrics();
+    getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+    commentButton = (LinearLayout) rootView.findViewById(R.id.commentButton);
+    likeButton = (LinearLayout) rootView.findViewById(R.id.likeButton);
+    endorseButton = (LinearLayout) rootView.findViewById(R.id.endorseButton);
+    postButton = (Button) rootView.findViewById(R.id.postButton);
+
+    actionContainer = (LinearLayout) rootView.findViewById(R.id.actionContainer);
+    commentContainer = (LinearLayout) rootView.findViewById(R.id.commentContainer);
+    addCommentContainer = (LinearLayout) rootView.findViewById(R.id.addCommentContainer);
+    allActionContainer = (LinearLayout) rootView.findViewById(R.id.allActionContainer);
+
+    addCommentEditText = (EditText) rootView.findViewById(R.id.commentEditText);
+
+    profilePic = (ImageView) rootView.findViewById(R.id.eventProfileIcon);
+    commentPic = (ImageView) rootView.findViewById(R.id.profilePicture);
+
+    asyncAddComments = addComments();
+
+    Drawable myDrawable = getResources().getDrawable(R.drawable.profile_pic);
+    Bitmap myPic = ((BitmapDrawable) myDrawable).getBitmap();
+    profilePic.setImageBitmap(getRoundedCornerBitmap(myPic, 48));
+    commentPic.setImageBitmap(getRoundedCornerBitmap(myPic, 48));
+    }
+
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
@@ -165,26 +154,28 @@ public class CardFragment extends Fragment {
         return output;
     }
 
-    public Runnable createSleepRunnable()
+    public Runnable addComments()
     {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                    doFakeWork();
+                    rollInComments();
             }
         };
 
         return runnable;
     }
 
-    private void doFakeWork() {
-        try {
+    private void rollInComments() {
+        try
+        {
             for(int i = 0; i < new Random().nextInt(5); i++)
             {
                 getChildFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment, 0, 0).add(R.id.commentContainer, new Comment()).commit();
                 Thread.sleep(100);
             }
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
