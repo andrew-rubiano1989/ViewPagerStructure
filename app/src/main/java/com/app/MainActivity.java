@@ -2,37 +2,39 @@ package com.app;
 
 import java.util.Locale;
 
-import android.animation.Animator;
-import android.animation.LayoutTransition;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.view.animation.Transformation;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import CustomLibrary.CustomImageView;
 import UI_Fragments.AchievementStream;
 import UI_Fragments.CreateGoal;
 import UI_Fragments.GoalManager;
@@ -58,9 +60,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     ActionBar actionBar;
     LinearLayout stream, goalManager, createGoal, achievements, progressTracker;
     TextView Title;
-    ImageButton homeIcon, searchIcon;
+    ImageButton searchIcon;
+    ImageView homeIcon;
     EditText searchBar;
-    Context context;
     Animation expand, collapse;
 
     @Override
@@ -98,6 +100,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         progressTracker = (LinearLayout) findViewById(R.id.progressTracker);
         progressTracker.setOnClickListener(this);
 
+        stream.setBackgroundColor(Color.parseColor("#0099cb"));
+
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i2) {
@@ -119,9 +123,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
         });
 
         Title = (TextView) findViewById(R.id.Title);
-        homeIcon = (ImageButton) findViewById(R.id.homeIcon);
+        homeIcon = (ImageView) findViewById(R.id.homeIcon);
         searchIcon = (ImageButton) findViewById(R.id.searchIcon);
         searchBar = (EditText) findViewById(R.id.searchBar);
+
+        Drawable myDrawable = getResources().getDrawable(R.drawable.person_icon);
+        Bitmap icon = ((BitmapDrawable) myDrawable).getBitmap();
+        homeIcon.setImageBitmap(getRoundedCornerBitmap(icon, 48));
 
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,18 +187,43 @@ public class MainActivity extends Activity implements View.OnClickListener{
         {
             case R.id.stream:
                 mViewPager.setCurrentItem(0);
+                stream.setBackgroundColor(Color.parseColor("#0099cb"));
+                goalManager.setBackgroundColor(Color.parseColor("#333333"));
+                createGoal.setBackgroundColor(Color.parseColor("#333333"));
+                achievements.setBackgroundColor(Color.parseColor("#333333"));
+                progressTracker.setBackgroundColor(Color.parseColor("#333333"));
                 break;
             case R.id.goalManager:
                 mViewPager.setCurrentItem(1);
+                stream.setBackgroundColor(Color.parseColor("#333333"));
+                goalManager.setBackgroundColor(Color.parseColor("#0099cb"));
+                createGoal.setBackgroundColor(Color.parseColor("#333333"));
+                achievements.setBackgroundColor(Color.parseColor("#333333"));
+                progressTracker.setBackgroundColor(Color.parseColor("#333333"));
                 break;
             case R.id.createGoal:
                 mViewPager.setCurrentItem(2);
+                stream.setBackgroundColor(Color.parseColor("#333333"));
+                goalManager.setBackgroundColor(Color.parseColor("#333333"));
+                createGoal.setBackgroundColor(Color.parseColor("#0099cb"));
+                achievements.setBackgroundColor(Color.parseColor("#333333"));
+                progressTracker.setBackgroundColor(Color.parseColor("#333333"));
                 break;
             case R.id.achievements:
                 mViewPager.setCurrentItem(3);
+                stream.setBackgroundColor(Color.parseColor("#333333"));
+                goalManager.setBackgroundColor(Color.parseColor("#333333"));
+                createGoal.setBackgroundColor(Color.parseColor("#333333"));
+                achievements.setBackgroundColor(Color.parseColor("#0099cb"));
+                progressTracker.setBackgroundColor(Color.parseColor("#333333"));
                 break;
             case R.id.progressTracker:
                 mViewPager.setCurrentItem(4);
+                stream.setBackgroundColor(Color.parseColor("#333333"));
+                goalManager.setBackgroundColor(Color.parseColor("#333333"));
+                createGoal.setBackgroundColor(Color.parseColor("#333333"));
+                achievements.setBackgroundColor(Color.parseColor("#333333"));
+                progressTracker.setBackgroundColor(Color.parseColor("#0099cb"));
                 break;
         }
     }
@@ -284,5 +317,28 @@ public class MainActivity extends Activity implements View.OnClickListener{
             textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
+    }
+
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
+                .getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
     }
 }
