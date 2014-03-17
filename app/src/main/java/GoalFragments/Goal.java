@@ -20,6 +20,11 @@ public class Goal extends Fragment {
     LinearLayout container;
     int minHeight;
 
+    public Goal()
+    {
+
+    }
+
     public Goal(int size)
     {
         minHeight = size;

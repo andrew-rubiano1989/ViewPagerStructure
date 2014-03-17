@@ -1,7 +1,11 @@
 package com.app;
 
+import java.sql.CallableStatement;
 import java.util.Locale;
+import java.util.concurrent.Callable;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -16,7 +20,9 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -63,6 +69,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     ImageView homeIcon, streamIcon, goalManagerIcon, searchIcon;
     EditText searchBar;
     Animation expand, collapse;
+    ValueAnimator colorAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +87,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(5);
 
         actionBar = getActionBar();
         actionBar.hide();
@@ -193,57 +201,78 @@ public class MainActivity extends Activity implements View.OnClickListener{
         {
             case R.id.stream:
                 mViewPager.setCurrentItem(0);
-                stream.setBackgroundColor(Color.parseColor("#0099cb"));
+
+                changeColorAsync(stream, Color.parseColor("#0099cd"));
+                changeColorAsync(goalManager, Color.parseColor("#333333"));
+                changeColorAsync(createGoal, Color.parseColor("#333333"));
+                changeColorAsync(achievements, Color.parseColor("#333333"));
+                changeColorAsync(progressTracker, Color.parseColor("#333333"));
+
                 streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_white);
-                goalManager.setBackgroundColor(Color.parseColor("#333333"));
                 goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
-                createGoal.setBackgroundColor(Color.parseColor("#333333"));
-                achievements.setBackgroundColor(Color.parseColor("#333333"));
-                progressTracker.setBackgroundColor(Color.parseColor("#333333"));
                 break;
             case R.id.goalManager:
                 mViewPager.setCurrentItem(1);
-                stream.setBackgroundColor(Color.parseColor("#333333"));
+
+                changeColorAsync(stream, Color.parseColor("#333333"));
+                changeColorAsync(goalManager, Color.parseColor("#0099cd"));
+                changeColorAsync(createGoal, Color.parseColor("#333333"));
+                changeColorAsync(achievements, Color.parseColor("#333333"));
+                changeColorAsync(progressTracker, Color.parseColor("#333333"));
+
                 streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
-                goalManager.setBackgroundColor(Color.parseColor("#0099cb"));
                 goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpd_white);
-                createGoal.setBackgroundColor(Color.parseColor("#333333"));
-                achievements.setBackgroundColor(Color.parseColor("#333333"));
-                progressTracker.setBackgroundColor(Color.parseColor("#333333"));
                 break;
             case R.id.createGoal:
                 mViewPager.setCurrentItem(2);
-                stream.setBackgroundColor(Color.parseColor("#333333"));
+
+                changeColorAsync(stream, Color.parseColor("#333333"));
+                changeColorAsync(goalManager, Color.parseColor("#333333"));
+                changeColorAsync(createGoal, Color.parseColor("#0099cd"));
+                changeColorAsync(achievements, Color.parseColor("#333333"));
+                changeColorAsync(progressTracker, Color.parseColor("#333333"));
+
                 streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
-                goalManager.setBackgroundColor(Color.parseColor("#333333"));
                 goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
-                createGoal.setBackgroundColor(Color.parseColor("#0099cb"));
-                achievements.setBackgroundColor(Color.parseColor("#333333"));
-                progressTracker.setBackgroundColor(Color.parseColor("#333333"));
+
                 break;
             case R.id.achievements:
                 mViewPager.setCurrentItem(3);
-                stream.setBackgroundColor(Color.parseColor("#333333"));
+
+                changeColorAsync(stream, Color.parseColor("#333333"));
+                changeColorAsync(goalManager, Color.parseColor("#333333"));
+                changeColorAsync(createGoal, Color.parseColor("#333333"));
+                changeColorAsync(achievements, Color.parseColor("#0099cd"));
+                changeColorAsync(progressTracker, Color.parseColor("#333333"));
+
                 streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
-                goalManager.setBackgroundColor(Color.parseColor("#333333"));
                 goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
-                createGoal.setBackgroundColor(Color.parseColor("#333333"));
-                achievements.setBackgroundColor(Color.parseColor("#0099cb"));
-                progressTracker.setBackgroundColor(Color.parseColor("#333333"));
                 break;
             case R.id.progressTracker:
                 mViewPager.setCurrentItem(4);
-                stream.setBackgroundColor(Color.parseColor("#333333"));
+
+                changeColorAsync(stream, Color.parseColor("#333333"));
+                changeColorAsync(goalManager, Color.parseColor("#333333"));
+                changeColorAsync(createGoal, Color.parseColor("#333333"));
+                changeColorAsync(achievements, Color.parseColor("#333333"));
+                changeColorAsync(progressTracker, Color.parseColor("#0099cd"));
+
                 streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
-                goalManager.setBackgroundColor(Color.parseColor("#333333"));
                 goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
-                createGoal.setBackgroundColor(Color.parseColor("#333333"));
-                achievements.setBackgroundColor(Color.parseColor("#333333"));
-                progressTracker.setBackgroundColor(Color.parseColor("#0099cb"));
                 break;
         }
     }
 
+    private void changeColorAsync(final LinearLayout view, final int color)
+    {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                view.setBackgroundColor(color);
+            }
+        };
+        runnable.run();
+    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -251,25 +280,47 @@ public class MainActivity extends Activity implements View.OnClickListener{
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        AchievementStream aStream;
+        GoalManager gManager;
+        CreateGoal cGoal;
+        HallOfAwesome hoAwesome;
+        ProgressTracker pTracker;
+
+        public void createNew()
+        {
+            if(aStream == null)
+                aStream = new AchievementStream();
+            if(gManager == null)
+                gManager = new GoalManager();
+            if(cGoal == null)
+                cGoal = new CreateGoal();
+            if(hoAwesome == null)
+                hoAwesome = new HallOfAwesome();
+            if(pTracker == null)
+                pTracker = new ProgressTracker();
+
+        }
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
+            createNew();
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
                 case 0:
-                    return new AchievementStream();
+                    return aStream;
                 case 1:
-                    return new GoalManager();
+                    return gManager;
                 case 2:
-                    return new CreateGoal();
+                    return cGoal;
                 case 3:
-                    return new HallOfAwesome();
+                    return hoAwesome;
                 case 4:
-                    return new ProgressTracker();
+                    return pTracker;
                 default:
                     return PlaceholderFragment.newInstance(position);
             }
