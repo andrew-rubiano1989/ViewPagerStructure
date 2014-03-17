@@ -24,6 +24,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.app.R;
 
 import java.util.Random;
@@ -36,11 +38,14 @@ import Comments.Comment;
 public class CardFragment extends Fragment {
 
     LinearLayout commentButton, likeButton, endorseButton, actionContainer, commentContainer, addCommentContainer, allActionContainer;
+    TextView likeNumber, endorseNumber, commentNumber;
     EditText addCommentEditText;
     Button postButton;
-    ImageView profilePic, commentPic;
+    ImageView profilePic, commentPic, likeButtonIcon, goalLikeButtonIcon, commentButtonIcon, goalCommentIcon, endorseButtonIcon, goalEndorseIcon;
     DisplayMetrics metrics;
     Runnable asyncAddComments;
+    boolean likeButtonBool, endorseBool;
+    int likeNumberInt, endorseNumberInt, commentNumberInt;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -65,6 +70,58 @@ public class CardFragment extends Fragment {
                     commentContainer.setVisibility(View.GONE);
                     addCommentContainer.setVisibility(View.GONE);
                     commentButton.setBackgroundColor(Color.parseColor("#ffffff"));
+                }
+            }
+        });
+
+        endorseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(endorseBool == false)
+                {
+                    endorseButtonIcon.setImageResource(R.drawable.ic_endorse_xxxhdpi_blue);
+                    goalEndorseIcon.setImageResource(R.drawable.ic_endorse_xxxhdpi_blue);
+                    endorseNumber.setTextColor(Color.parseColor("#0099cd"));
+
+                    endorseNumberInt = new Integer(endorseNumber.getText().toString()) + 1;
+                    endorseNumber.setText(new Integer(endorseNumberInt).toString());
+                    endorseBool = true;
+                }
+                else
+                {
+                    endorseButtonIcon.setImageResource(R.drawable.ic_endorse_xxxhdpi_light_grey);
+                    goalEndorseIcon.setImageResource(R.drawable.ic_endorse_xxxhdpi_light_grey);
+                    endorseNumber.setTextColor(Color.parseColor("#aeaeae"));
+
+                    endorseNumberInt = new Integer(endorseNumber.getText().toString()) - 1;
+                    endorseNumber.setText(new Integer(endorseNumberInt).toString());
+                    endorseBool = false;
+                }
+            }
+        });
+
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(likeButtonBool == false)
+                {
+                    likeButtonIcon.setImageResource(R.drawable.ic_like_xxxhdpi_blue);
+                    goalLikeButtonIcon.setImageResource(R.drawable.ic_like_xxxhdpi_blue);
+                    likeNumber.setTextColor(Color.parseColor("#0099cd"));
+
+                    likeNumberInt = new Integer(likeNumber.getText().toString()) + 1;
+                    likeNumber.setText(new Integer(likeNumberInt).toString());
+                    likeButtonBool = true;
+                }
+                else
+                {
+                    likeButtonIcon.setImageResource(R.drawable.ic_like_xxxhdpi_light_grey);
+                    goalLikeButtonIcon.setImageResource(R.drawable.ic_like_xxxhdpi_light_grey);
+                    likeNumber.setTextColor(Color.parseColor("#aeaeae"));
+
+                    likeNumberInt = new Integer(likeNumber.getText().toString()) - 1;
+                    likeNumber.setText(new Integer(likeNumberInt).toString());
+                    likeButtonBool = false;
                 }
             }
         });
@@ -94,8 +151,15 @@ public class CardFragment extends Fragment {
             public void onClick(View v) {
                 if(commentContainer.getVisibility() != View.GONE && addCommentEditText.length() != 0)
                 {
-                    getChildFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment, 0, 0).add(R.id.commentContainer, new Comment()).commit();
+                    getChildFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_comment, R.anim.leave_comment, 0, 0).add(R.id.commentContainer,
+                            new Comment("Andrew Rubiano", addCommentEditText.getText().toString(), "Now")).commit();
                     addCommentEditText.setText("");
+                    commentNumber.setTextColor(Color.parseColor("#0099cd"));
+                    goalCommentIcon.setImageResource(R.drawable.ic_comment_xxxhdpi_blue);
+                    commentButtonIcon.setImageResource(R.drawable.ic_comment_xxxhdpi_blue);
+
+                    commentNumberInt = new Integer(commentNumber.getText().toString()) + 1;
+                    commentNumber.setText(new Integer(commentNumberInt).toString());
                 }
             }
         });
@@ -118,10 +182,23 @@ public class CardFragment extends Fragment {
     addCommentContainer = (LinearLayout) rootView.findViewById(R.id.addCommentContainer);
     allActionContainer = (LinearLayout) rootView.findViewById(R.id.allActionContainer);
 
+    likeButtonIcon = (ImageView) rootView.findViewById(R.id.likeButtonIcon);
+    goalLikeButtonIcon = (ImageView) rootView.findViewById(R.id.commentLikeIcon);
+    commentButtonIcon = (ImageView) rootView.findViewById(R.id.commentCommentsIcon);
+    goalCommentIcon = (ImageView) rootView.findViewById(R.id.goalCommentsIcon);
+    endorseButtonIcon = (ImageView) rootView.findViewById(R.id.endorseButtonIcon);
+    goalEndorseIcon = (ImageView) rootView.findViewById(R.id.endorseGoalIcon);
+
+    likeNumber = (TextView) rootView.findViewById(R.id.commentLikeNumber);
+    endorseNumber = (TextView) rootView.findViewById(R.id.commentEndorseNumber);
+    commentNumber = (TextView) rootView.findViewById(R.id.commentCommentsNumber);
+
     addCommentEditText = (EditText) rootView.findViewById(R.id.commentEditText);
 
     profilePic = (ImageView) rootView.findViewById(R.id.eventProfileIcon);
     commentPic = (ImageView) rootView.findViewById(R.id.profilePicture);
+
+    likeButtonBool = false;
 
     asyncAddComments = addComments();
 

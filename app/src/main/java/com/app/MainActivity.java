@@ -60,8 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     ActionBar actionBar;
     LinearLayout stream, goalManager, createGoal, achievements, progressTracker;
     TextView Title;
-    ImageButton searchIcon;
-    ImageView homeIcon, streamIcon;
+    ImageView homeIcon, streamIcon, goalManagerIcon, searchIcon;
     EditText searchBar;
     Animation expand, collapse;
 
@@ -91,6 +90,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         goalManager = (LinearLayout) findViewById(R.id.goalManager);
         goalManager.setOnClickListener(this);
+        goalManagerIcon = (ImageView) findViewById(R.id.goal_manager_icon);
 
         createGoal = (LinearLayout) findViewById(R.id.createGoal);
         createGoal.setOnClickListener(this);
@@ -102,7 +102,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         progressTracker.setOnClickListener(this);
 
         stream.setBackgroundColor(Color.parseColor("#0099cb"));
-        streamIcon.setImageResource(R.drawable.stream_icon_white);
+        streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_white);
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -126,7 +126,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         Title = (TextView) findViewById(R.id.Title);
         homeIcon = (ImageView) findViewById(R.id.homeIcon);
-        searchIcon = (ImageButton) findViewById(R.id.searchIcon);
+        searchIcon = (ImageView) findViewById(R.id.searchIcon);
         searchBar = (EditText) findViewById(R.id.searchBar);
 
         Drawable myDrawable = getResources().getDrawable(R.drawable.person_icon);
@@ -141,6 +141,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     collapse = new ScaleAnimation(1, 0, 1, 1);
                     collapse.setDuration(250);
 
+                    searchIcon.setImageResource(R.drawable.ic_search_xxxhdpi_light_grey);
+
                     searchBar.setAnimation(collapse);
                     searchBar.setVisibility(View.GONE);
                     homeIcon.setVisibility(View.VISIBLE);
@@ -151,6 +153,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
                     expand = new ScaleAnimation(0, 1, 1, 1);
                     expand.setDuration(250);
+
+                    searchIcon.setImageResource(R.drawable.ic_search_xxxhdpi_white);
 
                     searchBar.setAnimation(expand);
 
@@ -190,8 +194,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.stream:
                 mViewPager.setCurrentItem(0);
                 stream.setBackgroundColor(Color.parseColor("#0099cb"));
-                streamIcon.setImageResource(R.drawable.stream_icon_white);
+                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_white);
                 goalManager.setBackgroundColor(Color.parseColor("#333333"));
+                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
                 createGoal.setBackgroundColor(Color.parseColor("#333333"));
                 achievements.setBackgroundColor(Color.parseColor("#333333"));
                 progressTracker.setBackgroundColor(Color.parseColor("#333333"));
@@ -199,8 +204,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.goalManager:
                 mViewPager.setCurrentItem(1);
                 stream.setBackgroundColor(Color.parseColor("#333333"));
-                streamIcon.setImageResource(R.drawable.stream_icon);
+                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
                 goalManager.setBackgroundColor(Color.parseColor("#0099cb"));
+                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpd_white);
                 createGoal.setBackgroundColor(Color.parseColor("#333333"));
                 achievements.setBackgroundColor(Color.parseColor("#333333"));
                 progressTracker.setBackgroundColor(Color.parseColor("#333333"));
@@ -208,8 +214,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.createGoal:
                 mViewPager.setCurrentItem(2);
                 stream.setBackgroundColor(Color.parseColor("#333333"));
-                streamIcon.setImageResource(R.drawable.stream_icon);
+                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
                 goalManager.setBackgroundColor(Color.parseColor("#333333"));
+                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
                 createGoal.setBackgroundColor(Color.parseColor("#0099cb"));
                 achievements.setBackgroundColor(Color.parseColor("#333333"));
                 progressTracker.setBackgroundColor(Color.parseColor("#333333"));
@@ -217,8 +224,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.achievements:
                 mViewPager.setCurrentItem(3);
                 stream.setBackgroundColor(Color.parseColor("#333333"));
-                streamIcon.setImageResource(R.drawable.stream_icon);
+                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
                 goalManager.setBackgroundColor(Color.parseColor("#333333"));
+                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
                 createGoal.setBackgroundColor(Color.parseColor("#333333"));
                 achievements.setBackgroundColor(Color.parseColor("#0099cb"));
                 progressTracker.setBackgroundColor(Color.parseColor("#333333"));
@@ -226,8 +234,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.progressTracker:
                 mViewPager.setCurrentItem(4);
                 stream.setBackgroundColor(Color.parseColor("#333333"));
-                streamIcon.setImageResource(R.drawable.stream_icon);
+                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
                 goalManager.setBackgroundColor(Color.parseColor("#333333"));
+                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
                 createGoal.setBackgroundColor(Color.parseColor("#333333"));
                 achievements.setBackgroundColor(Color.parseColor("#333333"));
                 progressTracker.setBackgroundColor(Color.parseColor("#0099cb"));

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.app.R;
 
@@ -24,17 +25,49 @@ import com.app.R;
 public class Comment extends Fragment {
 
     ImageView profileIcon;
+    TextView nameText, commentText, dateText;
+    String name, comment, date;
+
+    public Comment()
+    {
+        name = "Jillian Ho-lung";
+        comment = "I'm so proud of you!";
+        date = "a few seconds ago";
+    }
+
+    public Comment(String name, String comment, String date)
+    {
+        this.name = name;
+        this.comment = comment;
+        this.date = date;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.comment_fragment, container, false);
 
+        intializeComment(rootView);
+        attachInformaiton();
+
+        return rootView;
+    }
+
+    private void attachInformaiton() {
+        nameText.setText(name);
+        commentText.setText(comment);
+        dateText.setText(date);
+    }
+
+    private void intializeComment(View rootView)
+    {
+        nameText = (TextView) rootView.findViewById(R.id.commentersName);
+        commentText = (TextView) rootView.findViewById(R.id.commentersComment);
+        dateText = (TextView) rootView.findViewById(R.id.datePosted);
+
         profileIcon = (ImageView) rootView.findViewById(R.id.profilePicture);
         Drawable myDrawable = getResources().getDrawable(R.drawable.profile_pic);
         Bitmap myPic = ((BitmapDrawable) myDrawable).getBitmap();
         profileIcon.setImageBitmap(getRoundedCornerBitmap(myPic, 48));
-
-        return rootView;
     }
 
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {

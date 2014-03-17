@@ -45,7 +45,7 @@
                    android:text="Andrew Rubiano"
                    android:textStyle="bold"
                    android:layout_weight="1"
-                   android:id="@+id/CommentersName"
+                   android:id="@+id/commentersName"
                    android:gravity="top"
                    android:textSize="12dp"/>
 
