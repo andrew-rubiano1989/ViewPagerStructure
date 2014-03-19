@@ -6,7 +6,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.app.MainActivity$PlaceholderFragment">
+    tools:context="com.app.MainActivity$PlaceholderFragment"
+    android:background="@drawable/abc_cab_background_bottom_holo_dark"
+    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
 
     <TextView
         android:id="@+id/section_label"
