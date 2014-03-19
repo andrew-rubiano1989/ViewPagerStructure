@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.app.MainActivity$PlaceholderFragment"
-    android:background="@drawable/abc_cab_background_bottom_holo_dark"
+    android:background="#0099cd"
     android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
 
     <TextView

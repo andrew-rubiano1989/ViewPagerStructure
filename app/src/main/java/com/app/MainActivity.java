@@ -116,9 +116,49 @@ public class MainActivity extends Activity implements View.OnClickListener{
             @Override
             public void onPageScrolled(int i, float v, int i2) {
                 if(v > .5)
+                {
                     Title.setText(mSectionsPagerAdapter.getPageTitle(i + 1));
+                    switch(i+1)
+                    {
+                        case 0:
+                            achievementStreamSelect();
+                            break;
+                        case 1:
+                            goalManagerSelected();
+                            break;
+                        case 2:
+                            createGoalSelected();
+                            break;
+                        case 3:
+                            achievementsSelected();
+                            break;
+                        case 4:
+                            progressTrackerSelected();
+                            break;
+                    }
+                }
                 else
+                {
+                    switch(i)
+                    {
+                        case 0:
+                            achievementStreamSelect();
+                            break;
+                        case 1:
+                            goalManagerSelected();
+                            break;
+                        case 2:
+                            createGoalSelected();
+                            break;
+                        case 3:
+                            achievementsSelected();
+                            break;
+                        case 4:
+                            progressTrackerSelected();
+                            break;
+                    }
                     Title.setText(mSectionsPagerAdapter.getPageTitle(i));
+                }
             }
 
             @Override
@@ -201,66 +241,80 @@ public class MainActivity extends Activity implements View.OnClickListener{
         {
             case R.id.stream:
                 mViewPager.setCurrentItem(0);
-
-                changeColorAsync(stream, Color.parseColor("#0099cd"));
-                changeColorAsync(goalManager, Color.parseColor("#333333"));
-                changeColorAsync(createGoal, Color.parseColor("#333333"));
-                changeColorAsync(achievements, Color.parseColor("#333333"));
-                changeColorAsync(progressTracker, Color.parseColor("#333333"));
-
-                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_white);
-                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
+                achievementStreamSelect();
                 break;
             case R.id.goalManager:
                 mViewPager.setCurrentItem(1);
-
-                changeColorAsync(stream, Color.parseColor("#333333"));
-                changeColorAsync(goalManager, Color.parseColor("#0099cd"));
-                changeColorAsync(createGoal, Color.parseColor("#333333"));
-                changeColorAsync(achievements, Color.parseColor("#333333"));
-                changeColorAsync(progressTracker, Color.parseColor("#333333"));
-
-                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
-                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpd_white);
+                goalManagerSelected();
                 break;
             case R.id.createGoal:
                 mViewPager.setCurrentItem(2);
-
-                changeColorAsync(stream, Color.parseColor("#333333"));
-                changeColorAsync(goalManager, Color.parseColor("#333333"));
-                changeColorAsync(createGoal, Color.parseColor("#0099cd"));
-                changeColorAsync(achievements, Color.parseColor("#333333"));
-                changeColorAsync(progressTracker, Color.parseColor("#333333"));
-
-                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
-                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
-
+                createGoalSelected();
                 break;
             case R.id.achievements:
                 mViewPager.setCurrentItem(3);
-
-                changeColorAsync(stream, Color.parseColor("#333333"));
-                changeColorAsync(goalManager, Color.parseColor("#333333"));
-                changeColorAsync(createGoal, Color.parseColor("#333333"));
-                changeColorAsync(achievements, Color.parseColor("#0099cd"));
-                changeColorAsync(progressTracker, Color.parseColor("#333333"));
-
-                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
-                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
+                achievementsSelected();
                 break;
             case R.id.progressTracker:
                 mViewPager.setCurrentItem(4);
-
-                changeColorAsync(stream, Color.parseColor("#333333"));
-                changeColorAsync(goalManager, Color.parseColor("#333333"));
-                changeColorAsync(createGoal, Color.parseColor("#333333"));
-                changeColorAsync(achievements, Color.parseColor("#333333"));
-                changeColorAsync(progressTracker, Color.parseColor("#0099cd"));
-
-                streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
-                goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
+                progressTrackerSelected();
                 break;
         }
+    }
+
+    private void progressTrackerSelected() {
+        changeColorAsync(stream, Color.parseColor("#333333"));
+        changeColorAsync(goalManager, Color.parseColor("#333333"));
+        changeColorAsync(createGoal, Color.parseColor("#333333"));
+        changeColorAsync(achievements, Color.parseColor("#333333"));
+        changeColorAsync(progressTracker, Color.parseColor("#0099cd"));
+
+        streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
+        goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
+    }
+
+    private void achievementsSelected() {
+        changeColorAsync(stream, Color.parseColor("#333333"));
+        changeColorAsync(goalManager, Color.parseColor("#333333"));
+        changeColorAsync(createGoal, Color.parseColor("#333333"));
+        changeColorAsync(achievements, Color.parseColor("#0099cd"));
+        changeColorAsync(progressTracker, Color.parseColor("#333333"));
+
+        streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
+        goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
+    }
+
+    private void createGoalSelected() {
+        changeColorAsync(stream, Color.parseColor("#333333"));
+        changeColorAsync(goalManager, Color.parseColor("#333333"));
+        changeColorAsync(createGoal, Color.parseColor("#0099cd"));
+        changeColorAsync(achievements, Color.parseColor("#333333"));
+        changeColorAsync(progressTracker, Color.parseColor("#333333"));
+
+        streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
+        goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
+    }
+
+    private void goalManagerSelected() {
+        changeColorAsync(stream, Color.parseColor("#333333"));
+        changeColorAsync(goalManager, Color.parseColor("#0099cd"));
+        changeColorAsync(createGoal, Color.parseColor("#333333"));
+        changeColorAsync(achievements, Color.parseColor("#333333"));
+        changeColorAsync(progressTracker, Color.parseColor("#333333"));
+
+        streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_light_grey);
+        goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpd_white);
+    }
+
+    private void achievementStreamSelect() {
+        changeColorAsync(stream, Color.parseColor("#0099cd"));
+        changeColorAsync(goalManager, Color.parseColor("#333333"));
+        changeColorAsync(createGoal, Color.parseColor("#333333"));
+        changeColorAsync(achievements, Color.parseColor("#333333"));
+        changeColorAsync(progressTracker, Color.parseColor("#333333"));
+
+        streamIcon.setImageResource(R.drawable.ic_stream_xxhdpi_white);
+        goalManagerIcon.setImageResource(R.drawable.ic_goal_manager_xxxhpdi_light_grey);
     }
 
     private void changeColorAsync(final LinearLayout view, final int color)

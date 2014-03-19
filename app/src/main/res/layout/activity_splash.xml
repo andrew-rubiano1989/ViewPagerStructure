@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/abc_cab_background_bottom_holo_dark"
+    android:background="#0099cd"
 
     android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
 
