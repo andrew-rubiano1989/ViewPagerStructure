@@ -32,13 +32,11 @@ public class SplashScreen extends Activity {
                 // Start your app main activity
                 Intent i = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(i);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
                 // close this activity
                 finish();
             }
         }, SPLASH_TIME_OUT);
     }
-
-
-
 }
