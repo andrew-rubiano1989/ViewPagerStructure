@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="C:\Users\eanne_000\Documents\GitHub\ViewPagerStructure\libraries\facebook\src\main\assets" />
+    </dataSet>
+    <dataSet config="release" >
+        <source path="C:\Users\eanne_000\Documents\GitHub\ViewPagerStructure\libraries\facebook\src\release\assets" />
+    </dataSet>
+
+</merger>
