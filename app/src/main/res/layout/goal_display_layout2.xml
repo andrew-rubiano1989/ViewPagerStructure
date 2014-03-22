@@ -3,37 +3,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="148dp"
-    android:id="@+id/GoalViewContainer"
+    android:layout_height="150dp"
     android:background="@android:color/holo_blue_light">
 
-    <LinearLayout
+    <ImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:id="@+id/GoalViewContainer"
+        android:scaleType="centerCrop">
 
-    </LinearLayout>
+    </ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="left|center_vertical"
         android:background="@drawable/transparent_black">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Run a Marathon"
-            android:layout_weight="1"
             android:paddingTop="5dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="#ffffff"
             android:textSize="16dp"
-            android:gravity="left|top"/>
+            android:layout_weight="1"
+            android:gravity="left|bottom"/>
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"

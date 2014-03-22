@@ -3,19 +3,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="248dp"
-    android:id="@+id/GoalViewContainer"
+    android:layout_height="250dp"
     android:background="@android:color/holo_orange_light">
 
-    <LinearLayout
+    <ImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
+        android:id="@+id/GoalViewContainer"
+        android:scaleType="centerCrop"
         android:orientation="vertical">
 
-    </LinearLayout>
+    </ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +28,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Learn to play the Piano"
+            android:text="Learn to play the Violin"
             android:layout_weight="1"
             android:paddingTop="5dp"
             android:paddingLeft="10dp"
