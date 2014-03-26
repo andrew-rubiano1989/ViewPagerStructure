@@ -1,16 +1,10 @@
 package com.app;
 
-import java.sql.CallableStatement;
-import java.util.Locale;
-import java.util.concurrent.Callable;
-
-import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -20,11 +14,9 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,18 +26,27 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import CustomLibrary.CustomImageView;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import UI_Fragments.AchievementStream;
 import UI_Fragments.CreateGoal;
 import UI_Fragments.GoalManager;
 import UI_Fragments.HallOfAwesome;
 import UI_Fragments.ProgressTracker;
+import twitter4j.Query;
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -70,6 +71,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     EditText searchBar;
     Animation expand, collapse;
     ValueAnimator colorAnimation;
+    Twitter mTwitter;
+    ListView twitterListView; //Just leaving this as an example of how we could populate a listview with twitter objects...
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
+
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        String key = getApplicationContext().getString(R.string.twitter_oauth_key);
+        String secret = getApplicationContext().getString(R.string.twitter_oauth_secret);
+        cb.setOAuthConsumerKey(key);
+        cb.setOAuthConsumerSecret(secret);
+        Twitter twitter = new TwitterFactory(cb.build()).getInstance();
+
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -462,4 +474,26 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         return output;
     }
+
+    // function to get tweet about a certain thing...anything you can think of
+    private void showTweetsAbout(String queryString) {
+        List<Status> statuses = new ArrayList<Status>();
+        ArrayList<String> statusTexts = new ArrayList<String>();
+
+        try {
+            statuses = mTwitter.search(new Query(queryString)).getTweets();
+
+            for (Status s : statuses) {
+                statusTexts.add(s.getText() + "\n\n");
+            }
+        } catch (Exception e) {
+            statusTexts.add("Twitter query failed: " + e.toString());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, statusTexts);
+        twitterListView.setAdapter(adapter);
+    }
+
+
 }
