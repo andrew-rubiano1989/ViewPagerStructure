@@ -9,8 +9,6 @@ import android.widget.LinearLayout;
 
 import com.app.R;
 
-import java.util.Random;
-
 /**
  * Created by Drew on 3/14/14.
  */
