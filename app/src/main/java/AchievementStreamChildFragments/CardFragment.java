@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -59,7 +60,7 @@ public class CardFragment extends Fragment {
             public void onClick(View v) {
                 if(commentContainer.getVisibility() == View.GONE)
                 {
-                    new Thread(asyncAddComments).start();
+                    new addComments().execute(new Comment());
 
                     commentContainer.setVisibility(View.VISIBLE);
                     addCommentContainer.setVisibility(View.VISIBLE);
@@ -229,6 +230,24 @@ public class CardFragment extends Fragment {
         canvas.drawBitmap(bitmap, rect, rect, paint);
 
         return output;
+    }
+
+    private class addComments extends AsyncTask<Comment, Integer, Long>
+    {
+        @Override
+        protected Long doInBackground(Comment... comments) {
+            for(Comment comment: comments)
+            {
+                new Thread(asyncAddComments).start();
+            }
+            return null;
+        }
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+        }
+        @Override
+        protected void onPostExecute(Long result) {
+        }
     }
 
     public Runnable addComments()
