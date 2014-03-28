@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ViewPagerStructure</string>
+    <string name="app_name">KAAM</string>
     <string name="title_section1">Achievement Stream</string>
     <string name="title_section2">Goal Manager</string>
     <string name="title_section3">Create Goal</string>
@@ -11,4 +11,7 @@
     <string name="achievement_stream_blue">#ff67a2c3</string>
     <string name="twitter_oauth_key">CONSUMER KEY WILL GO HERE</string>
     <string name="twitter_oauth_secret">CONSUMER SECRET WILL GO HERE</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>
