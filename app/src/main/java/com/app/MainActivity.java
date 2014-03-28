@@ -39,6 +39,7 @@ import java.util.Locale;
 
 import UI_Fragments.AchievementStream;
 import UI_Fragments.CreateGoal;
+import UI_Fragments.CreateGoalSection;
 import UI_Fragments.GoalManager;
 import UI_Fragments.HallOfAwesome;
 import UI_Fragments.ProgressTracker;
@@ -197,34 +198,41 @@ public class MainActivity extends Activity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 if(searchBar.getVisibility() == View.VISIBLE)
-                {
-                    collapse = new ScaleAnimation(1, 0, 1, 1);
-                    collapse.setDuration(250);
+                    closeSearchBar(getResources().getDrawable(R.drawable.ic_search_xxxhdpi_light_grey));
+                else
+                    openSearchBar(getResources().getDrawable(R.drawable.ic_search_xxxhdpi_white));
 
-                    searchIcon.setImageResource(R.drawable.ic_search_xxxhdpi_light_grey);
-
-                    searchBar.setAnimation(collapse);
-                    searchBar.setVisibility(View.GONE);
-                    homeIcon.setVisibility(View.VISIBLE);
-                    Title.setVisibility(View.VISIBLE);
-                }
-                else{
-                    searchBar.setVisibility(View.VISIBLE);
-
-                    expand = new ScaleAnimation(0, 1, 1, 1);
-                    expand.setDuration(250);
-
-                    searchIcon.setImageResource(R.drawable.ic_search_xxxhdpi_white);
-
-                    searchBar.setAnimation(expand);
-
-                    homeIcon.setVisibility(View.GONE);
-                    Title.setVisibility(View.GONE);
-
-                }
             }
         });
 
+    }
+
+    public void closeSearchBar(Drawable icon)
+    {
+        collapse = new ScaleAnimation(1, 0, 1, 1);
+        collapse.setDuration(250);
+
+        searchIcon.setImageBitmap(((BitmapDrawable) icon).getBitmap());
+
+        searchBar.setAnimation(collapse);
+        searchBar.setVisibility(View.GONE);
+        homeIcon.setVisibility(View.VISIBLE);
+        Title.setVisibility(View.VISIBLE);
+    }
+
+    public void openSearchBar(Drawable icon)
+    {
+        searchBar.setVisibility(View.VISIBLE);
+
+        expand = new ScaleAnimation(0, 1, 1, 1);
+        expand.setDuration(250);
+
+        searchIcon.setImageBitmap(((BitmapDrawable) icon).getBitmap());
+
+        searchBar.setAnimation(expand);
+
+        homeIcon.setVisibility(View.GONE);
+        Title.setVisibility(View.GONE);
     }
 
     @Override
@@ -348,7 +356,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         AchievementStream aStream;
         GoalManager gManager;
-        CreateGoal cGoal;
+        CreateGoalSection cGoal;
         HallOfAwesome hoAwesome;
         ProgressTracker pTracker;
 
@@ -359,7 +367,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             if(gManager == null)
                 gManager = new GoalManager();
             if(cGoal == null)
-                cGoal = new CreateGoal();
+                cGoal = new CreateGoalSection();
             if(hoAwesome == null)
                 hoAwesome = new HallOfAwesome();
             if(pTracker == null)
