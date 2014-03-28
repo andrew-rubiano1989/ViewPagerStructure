@@ -196,7 +196,7 @@ public class CreateGoal extends Fragment {
         create_tasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getParentFragment().getFragmentManager().beginTransaction().replace(R.id.createGoalContainer,new CreateTasks(), "create goal").commit();
             }
         });
 
