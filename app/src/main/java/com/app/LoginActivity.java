@@ -23,9 +23,6 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
 
-
-
-
         Button mEmailSignInButton = (Button) findViewById(R.id.loginButton);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +35,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-
+        // Google+ Sign in Start
         // Find the Google+ sign in button.
         gPlusSignInButton = (SignInButton) findViewById(R.id.plus_sign_in_button);
 
@@ -51,19 +48,15 @@ public class LoginActivity extends Activity {
                 public void onClick(View view) {
                     //signIn();
                     Context context = getApplicationContext();
-                    CharSequence text = "No on uses Google+!";
+                    CharSequence text = "No one uses Google+!";
                     int duration = Toast.LENGTH_SHORT;
 
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
                 }
             });
-
-
-
-
     }
-
+    // End google+ sign in stuff
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

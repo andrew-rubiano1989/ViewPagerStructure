@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.Locale;
 
 import UI_Fragments.AchievementStream;
-import UI_Fragments.CreateGoal;
 import UI_Fragments.CreateGoalSection;
 import UI_Fragments.GoalManager;
 import UI_Fragments.HallOfAwesome;
@@ -50,6 +49,8 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class MainActivity extends Activity implements View.OnClickListener{
+
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -84,13 +85,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         setContentView(R.layout.activity_main);
 
+        //Twitter init starts here
         ConfigurationBuilder cb = new ConfigurationBuilder();
         String key = getApplicationContext().getString(R.string.twitter_oauth_key);
         String secret = getApplicationContext().getString(R.string.twitter_oauth_secret);
         cb.setOAuthConsumerKey(key);
         cb.setOAuthConsumerSecret(secret);
         Twitter twitter = new TwitterFactory(cb.build()).getInstance();
-
+        //Twitter init stops here
 
 
         // Create the adapter that will return a fragment for each of the three
