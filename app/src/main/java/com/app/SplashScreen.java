@@ -46,7 +46,7 @@ public class SplashScreen extends Activity {
     private static final String TROPHY_URL = "TrophyUrl";
 
 
-    // contacts JSONArray
+    // Trophies JSONArray
     JSONArray trophies = null;
 
 
@@ -67,7 +67,7 @@ public class SplashScreen extends Activity {
         actionBar.hide();
         setContentView(R.layout.activity_splash);
 
-        //Get request Test - doesn't use service handler class yet
+        //Get request Test - uses trophies at the moment
         new GetTrophys().execute();
 
         new Handler().postDelayed(new Runnable() {
@@ -135,6 +135,8 @@ public class SplashScreen extends Activity {
                 }
             } else {
                 Log.e("ServiceHandler", "Couldn't get any data from the url");
+                Toast.makeText(getApplicationContext(), "Failed to get data from the URL",
+                        Toast.LENGTH_LONG).show();
             }
 
             return null;
